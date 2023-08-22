@@ -11,6 +11,7 @@ class Solution {
         {
             swap(nums[i],nums[j]);
             permutation(nums,i+1,ans);
+            swap(nums[i],nums[j]);
         }
     }
     vector<vector<int>> permute(vector<int>& nums) {
