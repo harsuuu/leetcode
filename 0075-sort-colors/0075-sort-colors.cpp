@@ -2,6 +2,7 @@ class Solution {
 public:
     void sortColors(vector<int>& arr) {
         //We can use merge sort but it will take extra spaces.
+        //Count how many 0's ,1's and 2.
         int c1=0;
         int c2=0;
         int c3=0;
