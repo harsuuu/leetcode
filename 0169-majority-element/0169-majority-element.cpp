@@ -1,18 +1,38 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        int n=nums.size();
-        map<int, int>mpp;
-        for(int i=0;i<n;i++)
-        {
-            mpp[nums[i]]++;
-        }
-        for(auto it : mpp)
-        {
-            if(it.second>n/2)
-            {
-                return it.first;
-            }
-        }return -1;
+       //Moore's voting algorithm
+       int count=0;
+       int element;
+       for(int i=0;i<nums.size();i++)
+       {
+           if(count==0)
+           {
+               count = 1;
+               element= nums[i];
+           }
+           else if(nums[i]==element)
+           {
+               count++;
+           }
+           else    //nums[i]!=element --> to count ko decrement krde.
+           {
+               count--;
+           }
+       }
+       //Now we got that element.
+       int count1=0;
+       for(int i=0;i<nums.size();i++)
+       {
+           if(nums[i]==element)
+           {
+               count1++;
+           }
+       }
+       if(count1>nums.size()/2)
+       {
+           return element;
+       }
+       return -1;
     }
 };
