@@ -11,7 +11,7 @@ public:
 
         while(low<=high)
         {
-            int mid1 = (low + high)/2;
+            int mid1 = low + (high-low)/2;
             int mid2 = (n1+n2 + 1)/2 - mid1;
 
             int l1 = mid1 == 0 ? INT_MIN : nums1[mid1-1];
