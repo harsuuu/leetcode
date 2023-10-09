@@ -9,6 +9,7 @@ public:
                 nums[i+1]=nums[j];
                 i++;
             }
-        }return i+1;
+        }//cout<<i+1;
+        return i+1;
     }
 };
