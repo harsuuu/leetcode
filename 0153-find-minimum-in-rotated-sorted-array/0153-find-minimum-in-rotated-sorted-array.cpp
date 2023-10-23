@@ -1,24 +1,30 @@
 class Solution {
 public:
-    int findMin(vector<int>& nums) {
-       int start=0;
-       int end=nums.size()-1;
+    int findMin(vector<int>&arr) {
+       int n=arr.size();
+       int low=0;
+       int high=n-1;
        int ans=INT_MAX;
-       while(start<=end)
+       while(low<=high)
        {
-           int mid=(start+end)/2;
-           // check which is sorted array
-           if(nums[mid]<=nums[end]) //right array is sorted.
+           int mid=(low+high)/2;
+           //for better time complexity
+           if(arr[low]<=arr[high])
            {
-               ans=min(ans,nums[mid]);
-               end=mid-1;
+               ans=min(arr[low],ans);
+               break;
            }
-           else //nums[mid]>=nums[start] -->left array is sorted.
+           if(arr[mid]>=arr[low])
            {
-               ans=min(ans,nums[start]);
-               start=mid+1;
+               ans=min(arr[low],ans);
+               low=mid+1;
+           }
+           else
+           {
+               ans=min(arr[mid],ans);
+               high=mid-1;
            }
        }
-       return ans;
+    return ans;
     }
 };
