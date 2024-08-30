@@ -1,23 +1,22 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        sort(s.begin(),s.end());
-        sort(t.begin(),t.end());
-
-        if(s.length()!=t.length())
+        if(s.length()!=t.length())      return false;
+        unordered_map<char,int>mpp;
+        for(auto it:s)
         {
-            return false;
+            mpp[it]++;
         }
-        else
-        {
-            for(int i=0;i<s.size();i++)
+        // Subtract counts based on the second string
+        for (auto it : t) {
+            if (mpp.find(it) != mpp.end() && mpp[it] > 0)
             {
-                if(s[i]!=t[i])
-                {
-                    return false;
-                }
+                mpp[it]--;
+            }
+            else {
+                return false; // Character not found or count is zero, not an anagram
             }
         }
-        return true;
+    return true;
     }
 };
