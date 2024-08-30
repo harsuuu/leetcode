@@ -1,26 +1,28 @@
 class Solution {
 public:
     int findMinDifference(vector<string>& timePoints) {
-        int n = timePoints.size();
-        vector<int>mintues;
-        for(int i=0;i<n;i++)
-        {
-            string curr = timePoints[i];
-            int hour = stoi(curr.substr(0,2));
-            hour = (hour == 0) ? 24 : hour;
-            int min = stoi(curr.substr(3,2));
-            mintues.push_back(hour*60+min);
-        }
+        int n = timePoints.size();  // Declare n once
+    vector<int> minutes;
 
-        sort(mintues.begin(),mintues.end());
+    for (int i = 0; i < n; i++) {
+        string curr = timePoints[i];
+        int hour = stoi(curr.substr(0, 2));
+        int min = stoi(curr.substr(3, 2));
+        hour = (hour == 0) ? 24 : hour;  // Correct assignment for midnight handling
+        minutes.push_back(hour * 60 + min);
+    }
 
-        int k = mintues.size();
-        int mini = INT_MAX;
-        for(int i=0;i<k-1;i++)
-        {
-            int diff =mintues[i+1]-mintues[i];
-            mini=min(mini,diff);
-        }
+    sort(minutes.begin(), minutes.end());
+
+    int mini = INT_MAX;  // Initialize minimum difference
+    for (int i = 0; i < n - 1; i++) {
+        int diff = minutes[i + 1] - minutes[i];
+        mini = min(mini, diff); 
+    }
+
+    // Handle the wrap-around case for the circular time difference
+    int last_diff = (minutes[0] + 1440) - minutes[n - 1];
+    mini = min(mini, last_diff);
 
     return mini;
     }
