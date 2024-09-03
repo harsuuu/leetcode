@@ -1,23 +1,29 @@
 class Solution {
 public:
-    int solve(string &s, string &t, int i, int j,vector<vector<int>>&dp)
+    int solve(string &text1, string &text2,int index1, int index2,vector<vector<int>>&dp)
     {
-        //base case 
-        if(i<0)     return j+1;
-        if(j<0)     return i+1;
-        
-        if(dp[i][j]!=-1)    return dp[i][j];
-    
-        if(s[i]==t[j])
+        if(index1 < 0 || index2 < 0)
         {
-            return dp[i][j] =  0 + solve(s,t,i-1,j-1,dp);
-        } 
-        return dp[i][j] =  1 + min(solve(s,t,i,j-1,dp),solve(s,t,i-1,j,dp));
+            return 0;
+        }
+        if(dp[index1][index2]!=-1)  return dp[index1][index2];
+        //matching
+        if(text1[index1]==text2[index2])
+        {
+            return dp[index1][index2] = 1 + solve(text1,text2,index1-1, index2-1,dp);
+        }
+        //not matching
+        return dp[index1][index2] = 0 + max(solve(text1,text2,index1-1, index2,dp),solve(text1,text2,index1, index2-1,dp)); 
     }
     int minDistance(string word1, string word2) {
+       
         int n = word1.size();
         int m = word2.size();
+
         vector<vector<int>>dp(n,vector<int>(m,-1));
-        return solve(word1,word2,n-1,m-1,dp);
+        int lcsLength = solve(word1,word2,n-1,m-1,dp);
+
+        // Minimum deletions needed
+        return (n - lcsLength) + (m - lcsLength);
     }
 };
