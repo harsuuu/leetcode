@@ -30,7 +30,30 @@ public:
         //1 --> can buy
         //0 --> can not buy only sell
         int n = prices.size();
-        vector<vector<vector<int>>>dp(n,vector<vector<int>>(2,vector<int>(3,-1)));
-        return solve(0,1,prices,2,dp);
+        vector<vector<vector<int>>>dp(n+1,vector<vector<int>>(2,vector<int>(3,0)));
+        //base case
+        for(int index=n-1;index>=0;index--){
+            for(int buy=0;buy<=1;buy++){
+                for(int cap=1;cap<=2;cap++)
+                {
+                int profit = 0;
+                if(buy)
+                {
+                    int buy = -prices[index] + dp[index+1][0][cap];
+                    int not_buy = 0 + dp[index+1][1][cap];
+
+                    profit = max(buy,not_buy);
+                }
+                else{
+                    int sell = prices[index] + dp[index+1][1][cap-1];
+                    int not_sell = 0 + dp[index+1][0][cap];
+
+                    profit = max(sell,not_sell);
+                }
+            dp[index][buy][cap] =  profit;
+            }
+            }
+        }
+    return dp[0][1][2];
     }
 };
