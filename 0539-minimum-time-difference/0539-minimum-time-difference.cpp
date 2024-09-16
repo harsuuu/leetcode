@@ -8,7 +8,7 @@ public:
         string curr = timePoints[i];
         int hour = stoi(curr.substr(0, 2));
         int min = stoi(curr.substr(3, 2));
-        hour = (hour == 0) ? 24 : hour;  // Correct assignment for midnight handling
+       
         minutes.push_back(hour * 60 + min);
     }
 
