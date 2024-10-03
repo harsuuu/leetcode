@@ -20,7 +20,13 @@ public:
         // Convert result array to string
         string resultStr;
         for (int num : result) {
-            if (!(resultStr.empty() && num == 0)) { // Skip leading zeros
+            if(resultStr.empty() && num==0)
+            {
+                continue;
+            }
+            //if (!(resultStr.empty() && num == 0)) { // Skip leading zeros
+            else{
+
                 resultStr.push_back(num + '0');
             }
         }
